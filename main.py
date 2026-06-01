@@ -1,6 +1,6 @@
 from validate import validate
 from enums import AlgoChoiceEnum
-
+from process import parse_data, normalize
 def main():
     print("Welcome to the (???) Feature Selection Algorithm")
     filename = input("Type the name of the file to test: ")
@@ -35,8 +35,22 @@ def main():
         print("Invalid input type. Try again.")
         return
 
+
     """
     This dataset has x features (not including the class attribute), with y instances.
+    """
+    dataset = parse_data(filename)
+    if dataset is None:
+        return
+    dataset = normalize(dataset)
+    num_instances = len(dataset)
+    num_features = len(dataset[0].get_features())
+
+    print(f"This dataset has {num_features} features (not including the class attribute), with {num_instances} instances.")
+
+    """
+    Running nearest neighbor with all x features, using "leave-one-out" evaluation,
+    I get an accuracy of z.zz%.
     """
 if __name__ == "__main__":
     main()
