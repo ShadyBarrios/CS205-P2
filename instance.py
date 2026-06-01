@@ -14,3 +14,7 @@ class Instance:
 
     def get_features(self):
         return self.instanceFeatures
+    
+    def select_features(self, feature_idxs):
+        features = [self.instanceFeatures[i] for i in feature_idxs]
+        return Instance(self.instanceID, self.instanceClass, features)

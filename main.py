@@ -1,6 +1,10 @@
 from validate import validate
 from enums import AlgoChoiceEnum
 from process import parse_data, normalize
+from algorithms import run_algo, naive_algo
+
+# txt/test_formatting_valid.txt
+
 def main():
     print("Welcome to the (???) Feature Selection Algorithm")
     filename = input("Type the name of the file to test: ")
@@ -52,5 +56,7 @@ def main():
     Running nearest neighbor with all x features, using "leave-one-out" evaluation,
     I get an accuracy of z.zz%.
     """
+    naive_accuracy = naive_algo(dataset)
+    print(f"Running nearest neighbor with all {num_features} features, using 'leave-one-out' evaluation,\nI get an accuracy of {(100*naive_accuracy):.2f}%.")
 if __name__ == "__main__":
     main()

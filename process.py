@@ -13,7 +13,8 @@ def parse_data(filename):
                     break
 
                 parts = line.split()
-                instanceClass = parts[0]
+                instanceClass = int(parts[0].split(".")[0])
+                print(instanceClass)
                 instanceFeatures = [float(feature) for feature in parts[1::]]
                 instance = Instance(instanceID, instanceClass, instanceFeatures)
                 instances.append(instance)
@@ -56,3 +57,4 @@ def normalize_instance(instance, col_stats):
 
 def z_score(value, mean, std):
     return ((value - mean) / std)
+
