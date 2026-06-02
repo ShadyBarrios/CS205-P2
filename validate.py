@@ -3,7 +3,7 @@
 import re as regex
 
 # note: r needed for regex (raw string format)
-pattern1 = r"[1-9](\d*)" # int for class classification
+pattern1 = r"[1-9]\.(0{7})e\+(0{3})" # int for class classification
 pattern2 = r"[1-9]\.(\d{7})e\+(\d{3})" # (x.xxxxxxxe+xxx)
 
 def validate(lines):
