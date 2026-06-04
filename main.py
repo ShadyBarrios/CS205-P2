@@ -6,7 +6,8 @@ from algorithms import run_algo, naive_algo
 # txt/test_formatting_valid.txt
 
 def main():
-    print("Welcome to the (???) Feature Selection Algorithm")
+    # SAFA = Scott Andrew Football Associaton 
+    print("Welcome to the SAFA Feature Selection Algorithm")
     filename = input("Type the name of the file to test: ")
     try:
         with open(filename, 'r') as file:
