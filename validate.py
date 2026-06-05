@@ -4,7 +4,7 @@ import re as regex
 
 # note: r needed for regex (raw string format)
 pattern1 = r"[1-9]\.(0{7})e\+(0{2})" # int for class classification
-pattern2 = r"-?\d\.\d{7}e[+-]\d{2}" # (x.xxxxxxxe+xx)
+pattern2 = r"\-?\d\.\d{7}e[\+\-]\d{2}" # (x.xxxxxxxe+xx)
 
 def validate(lines):
     for line in lines:
