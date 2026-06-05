@@ -14,6 +14,8 @@ def forward_selection(dataset, feature_idxs):
     bestSet = []
     ovrAccuracy = 0 
     depths = len(feature_idxs)
+    maxDecrease = 2
+    decreaseCount = 0
 
     print("\nBeginning search.\n")
     while depths > 0:
@@ -26,12 +28,12 @@ def forward_selection(dataset, feature_idxs):
                 feat = currFeatures + [feature]
                 filterDataset = select_features(dataset, feat)
                 accuracy = one_fold_cross_validation(filterDataset)
-            print(f"\tUsing feature(s) {[f + 1 for f in feat]} accuracy is {accuracy * 100:.2f}%")
+                print(f"\tUsing feature(s) {[f + 1 for f in feat]} accuracy is {accuracy * 100:.2f}%")
             
-            # finds best feature to add
-            if accuracy > bestAccuracy:
-                bestAccuracy = accuracy
-                bestFeature = feature
+                # finds best feature to add
+                if accuracy > bestAccuracy:
+                    bestAccuracy = accuracy
+                    bestFeature = feature
         currFeatures.append(bestFeature)
         print(f"\nFeature set {[f + 1 for f in currFeatures]} was best, accuracy is {bestAccuracy * 100:.2f}%\n")
 
@@ -39,9 +41,13 @@ def forward_selection(dataset, feature_idxs):
         if bestAccuracy > ovrAccuracy:
             ovrAccuracy = bestAccuracy
             bestSet = currFeatures.copy()
+            decreaseCount = 0
         else:
             # decreased accuracy, continue search (local maxima case)
+            decreaseCount += 1
             print("(Warning, Accuracy has decreased! Continuing search in case of local maxima)")
+            if decreaseCount >= maxDecrease:
+                break
 
         depths -= 1
     print(f"\nFinished search!! The best feature subset is {[f + 1 for f in bestSet]}, which has an accuracy of {ovrAccuracy * 100:.2f}%")
@@ -53,6 +59,8 @@ def backward_selection(dataset, feature_idxs):
     ovrAccuracy = one_fold_cross_validation(filterDataset)
     bestSet = currFeatures.copy()
     depths = len(feature_idxs)
+    maxDecrease = 2
+    decreaseCount = 0
 
     print("\nBeginning search.\n")
     while depths > 1:
@@ -79,9 +87,13 @@ def backward_selection(dataset, feature_idxs):
         if bestAccuracy > ovrAccuracy:
             ovrAccuracy = bestAccuracy
             bestSet = currFeatures.copy()
+            decreaseCount = 0
         else:
+            decreaseCount += 1
             print("(Warning, Accuracy has decreased! Continuing search in case of local maxima)")
-        
+            if decreaseCount >= maxDecrease:
+                break
+
         depths -= 1
     print(f"\nFinished search!! The best feature subset is {[f + 1 for f in bestSet]}, which has an accuracy of {ovrAccuracy * 100:.2f}%")
 
