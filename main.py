@@ -58,5 +58,7 @@ def main():
     """
     naive_accuracy = naive_algo(dataset)
     print(f"Running nearest neighbor with all {num_features} features, using 'leave-one-out' evaluation,\nI get an accuracy of {(100*naive_accuracy):.2f}%.")
+
+    run_algo(algoChoice, dataset)
 if __name__ == "__main__":
     main()

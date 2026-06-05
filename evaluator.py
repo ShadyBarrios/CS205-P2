@@ -9,7 +9,6 @@ def one_fold_cross_validation(dataset):
         test_dataset = dataset[:test_idx] + dataset[test_idx+1:]
         expected = dataset[test_idx].get_class()
         prediction = nearest_neighbor(dataset[test_idx], test_dataset)
-        print(f"{expected} | {prediction}")
         if prediction == expected:
             num_success += 1
         num_runs += 1
