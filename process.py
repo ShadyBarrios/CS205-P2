@@ -14,7 +14,6 @@ def parse_data(filename):
 
                 parts = line.split()
                 instanceClass = int(parts[0].split(".")[0])
-                print(instanceClass)
                 instanceFeatures = [float(feature) for feature in parts[1::]]
                 instance = Instance(instanceID, instanceClass, instanceFeatures)
                 instances.append(instance)

@@ -1,10 +1,10 @@
 # will include regex script to make sure file input is correct format
-# (int) (x.xxxxxxxe+xxx) (x.xxxxxxxe+xxx) ...
+# (int) (x.xxxxxxxe+xx) (x.xxxxxxxe+xx) ...
 import re as regex
 
 # note: r needed for regex (raw string format)
-pattern1 = r"[1-9]\.(0{7})e\+(0{3})" # int for class classification
-pattern2 = r"[1-9]\.(\d{7})e\+(\d{3})" # (x.xxxxxxxe+xxx)
+pattern1 = r"[1-9]\.(0{7})e\+(0{2})" # int for class classification
+pattern2 = r"-?\d\.\d{7}e[+-]\d{2}" # (x.xxxxxxxe+xx)
 
 def validate(lines):
     for line in lines:
@@ -14,16 +14,16 @@ def validate(lines):
     return True
 
 def validateLine(line):
-    items = line.split(r"\w") # split at whitespace
+    items = line.split() # split at whitespace
     classItem = items[0]
     valueItems = items[1::]
 
-    checkClass = regex.match(pattern1, classItem)
+    checkClass = regex.fullmatch(pattern1, classItem)
     if checkClass is None:
         return False
     
     for item in valueItems: # makes sure that each item matches the 8-floating num standard
-        checkValue = not (regex.match(pattern2, item) is None)
+        checkValue = not (regex.fullmatch(pattern2, item) is None)
         if checkValue == False:
             return False
     
