@@ -14,8 +14,8 @@ def forward_selection(dataset, feature_idxs):
     bestSet = []
     ovrAccuracy = 0 
     depths = len(feature_idxs)
-    maxDecrease = 2
-    decreaseCount = 0
+    maxDecrease = 2 # local maxima tolerance case, if accuracy decreases twice in a row, search stops
+    decreaseCount = 0 # counter to keep track
 
     print("\nBeginning search.\n")
     while depths > 0:
@@ -59,7 +59,7 @@ def backward_selection(dataset, feature_idxs):
     ovrAccuracy = one_fold_cross_validation(filterDataset)
     bestSet = currFeatures.copy()
     depths = len(feature_idxs)
-    maxDecrease = 2
+    maxDecrease = 2 # same as forward local maxima tolerance implementation
     decreaseCount = 0
 
     print("\nBeginning search.\n")
